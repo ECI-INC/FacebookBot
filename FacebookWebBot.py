@@ -250,7 +250,6 @@ class FacebookBot(webdriver.Chrome):
                     post.linkToShare = a[6].get_attribute('href')
                     post.linkToLikers = a[1].get_attribute('href')
                     post.linkToMore = a[9].get_attribute('href')
-                    post.LinkToComposer = self.
                     if post not in posts:
                         posts.append(post)
                 except Exception:
