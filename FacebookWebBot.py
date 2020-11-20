@@ -232,7 +232,7 @@ class FacebookBot(webdriver.Chrome):
                     a = p.find_elements_by_tag_name("a")
                     post.posterName = a[1].text
                     try:
-                        post.numLikes = int(a[3].text.split(" ")[0])
+                        post.numLikes = int(a[2].text.split(" ")[0])
                     except ValueError:
                         post.numLikes = 0
                     post.text = p.find_element_by_tag_name("p").text
@@ -247,9 +247,10 @@ class FacebookBot(webdriver.Chrome):
                         post.numComents = int(a[5].text.split(" ")[0])
                     except ValueError:
                         post.numComents = 0
-                    # post.linkToShare = a[5].get_attribute('href')
+                    post.linkToShare = a[6].get_attribute('href')
                     post.linkToLikers = a[1].get_attribute('href')
-                    post.linkToMore = a[6].get_attribute('href')
+                    post.linkToMore = a[9].get_attribute('href')
+                    post.LinkToComposer = self.
                     if post not in posts:
                         posts.append(post)
                 except Exception:
@@ -305,11 +306,11 @@ class FacebookBot(webdriver.Chrome):
             self.get(postUrl)
             tb = self.find_element_by_name("comment_text")
             tb.send_keys(text)
-            tb.send_keys(Keys.ENTER)
-            return self.getScrenshotName(
-                "CommentingIn_" + self.title, screenshot, screenshotPath)
+            self.find_element_by_xpath('//input[@value="Comment"]').click()
+            return True
         except Exception as e:
             print("Can't comment in ", postUrl, "\n->", e)
+            raise e 
 
     def getGroupMembers(self, url, deep=3, start=0):
         """Return a list of members of a group(url) as a list:Person iterat deep(int) times"""
