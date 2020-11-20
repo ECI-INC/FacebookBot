@@ -230,7 +230,7 @@ class FacebookBot(webdriver.Chrome):
                     p = self.find_element_by_id("u_0_" + str(i))
                     # print(p.text)
                     a = p.find_elements_by_tag_name("a")
-                    post.posterName = a[1].text
+                    post.posterName = a[0].text
                     try:
                         post.numLikes = int(a[2].text.split(" ")[0])
                     except ValueError:
